@@ -1,4 +1,4 @@
-package com.kareem.spotifyclone.data.entities
+package com.kareem.domain.entity
 
 data class Song(
     val mediaId: String = "",

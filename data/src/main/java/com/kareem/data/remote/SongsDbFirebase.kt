@@ -1,11 +1,11 @@
-package com.kareem.spotifyclone.data.remote
+package com.kareem.data.remote
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.kareem.spotifyclone.data.entities.Song
-import com.kareem.spotifyclone.other.Constants.SONG_COLLECTION
+import com.kareem.data.remote.Constants.SONG_COLLECTION
+import com.kareem.domain.entity.Song
 import kotlinx.coroutines.tasks.await
 
-class MusicDatabase {
+class SongsDbFirebase {
     private val firestore = FirebaseFirestore.getInstance()
     private val songCollection = firestore.collection(SONG_COLLECTION)
 
@@ -16,4 +16,8 @@ class MusicDatabase {
             emptyList()
         }
     }
+}
+
+object Constants {
+    const val SONG_COLLECTION = "songs"
 }
