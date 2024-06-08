@@ -10,6 +10,7 @@ import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.DefaultDataSourceFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.SimpleExoPlayer
+import com.kareem.data.remote.SongsDbFirebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +22,9 @@ import dagger.hilt.android.scopes.ServiceScoped
 @InstallIn(ServiceComponent::class)
 object ServiceModule {
 
+    @ServiceScoped
+    @Provides
+    fun provideMusicDatabase() = SongsDbFirebase()
     @ServiceScoped
     @Provides
     fun provideAudioAttributes() = AudioAttributes.Builder()
