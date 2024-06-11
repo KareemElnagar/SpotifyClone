@@ -10,6 +10,7 @@ import androidx.media3.datasource.DefaultDataSourceFactory
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaController
 import androidx.media3.session.MediaSession
+import com.kareem.spotifyclone.exoplayer.callbacks.MusicPlayerNotificationListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,11 +30,16 @@ class MusicService : MediaBrowserService() {
     @Inject
     lateinit var exoPlayer: ExoPlayer
 
+
+    private lateinit var musicNotificationManager: MusicNotificationManager
+
+
     private val serviceJob = Job()
     private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
 
     private lateinit var mediaSession: MediaSession
 
+    var isForegroundService = false
     override fun onCreate() {
         super.onCreate()
         val activityIntent = packageManager?.getLaunchIntentForPackage(packageName)?.let {
@@ -46,6 +52,14 @@ class MusicService : MediaBrowserService() {
 
         }.build()
         val sessionToken = mediaSession.token
+
+        musicNotificationManager = MusicNotificationManager(
+            this,
+            sessionToken,
+            MusicPlayerNotificationListener(this)
+        ) {
+
+        }
 
         val mediaControllerFuture = MediaController.Builder(this, sessionToken)
             .buildAsync()
