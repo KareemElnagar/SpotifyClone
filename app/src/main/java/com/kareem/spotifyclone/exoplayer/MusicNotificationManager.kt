@@ -4,8 +4,10 @@ import android.app.PendingIntent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.Log
+import androidx.annotation.OptIn
 import androidx.core.content.ContextCompat
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import androidx.media3.ui.PlayerNotificationManager
@@ -19,7 +21,9 @@ import com.kareem.spotifyclone.other.Constants.NOTIFICATION_CHANNEL_ID
 import com.kareem.spotifyclone.other.Constants.NOTIFICATION_ID
 
 
-class MusicNotificationManager(
+@UnstableApi
+class MusicNotificationManager @OptIn(UnstableApi::class) constructor
+    (
     val context: Context,
     sessionToken: SessionToken,
     notificationListener: PlayerNotificationManager.NotificationListener,
